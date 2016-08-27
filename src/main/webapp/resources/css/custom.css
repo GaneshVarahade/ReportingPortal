@@ -1,0 +1,91 @@
+/* Larger than Desktop HD */
+body{overflow-y:scroll; overflow-x:hidden;}
+body::-webkit-scrollbar{display:none;}body::-ms-scrollbar{display:none;}body::-moz-scrollbar{display:none;}
+@media (min-width: 1201px) and (max-width: 4000px) {
+	.marginauto {
+    margin: 0 auto;
+    width: 80%;
+}
+	.parentrightreport{}
+	.parentline1{ width:90%; margin:0 auto;}
+	.childsline1{ float:left; width:16.5%;}
+	.inputline1{width:130px !important;}
+	.parentline2{ width:90%; margin:0 auto;}
+	.childtests{float: left;height: 28px;}
+	.childtests > label {font-size: 14px;margin-right: 40px;margin-top: 10px;}
+	#datetimepicker > input {font-size: 11px;}
+	#datetimepicker1 > input {font-size: 11px;}
+	
+#tableID_filter > label {
+    margin-right: 20px;
+}
+}
+
+/* Larger than desktop */
+@media (min-width: 768px) and (max-width: 1200px) {
+	.marginauto {
+    margin: 0 auto;
+    width: 80%;
+}
+	.parentrightreport{}
+	.parentline1{ width:100%; margin:0 auto;}
+	.childsline1{ float:left; width:16.6%;}
+	.inputline1{width:100px !important;}
+	.control-label { font-size: 12px;}
+	.parentline2{ width:90%; margin:0 auto;}
+	.childtests{float: left;height: 28px;}
+	.childtests > label {font-size: 14px;margin-right: 40px;margin-top: 10px;}
+	#datetimepicker > input {font-size: 11px;}
+	#datetimepicker1 > input {font-size: 11px;}
+}
+
+/* Larger than tablet */
+@media (min-width: 481px) and (max-width: 767px) {
+	.marginauto {
+    margin: 0 auto;
+    width: 80%;
+}
+	#datetimepicker > input {width: 100%;}
+	#datetimepicker1 > input {width: 100%;}
+	.parentrightreport{}
+	.parentline1{ width:90%; margin:0 auto;}
+	.childsline1{ float:none; width:90%;}
+	.inputline1{width:100% !important;}
+	.control-label { font-size: 12px;}
+	.parentline2{ width:90%; margin:0 auto;}
+	.childtests{float: none;height: 28px;}
+	.childtests > label {font-size: 14px;margin-right: 40px;margin-top: 10px;}
+	#datetimepicker > input {font-size: 11px;}
+	#datetimepicker1 > input {font-size: 11px;}
+}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 320px) and (max-width: 480px) {
+	.marginauto {
+    margin: 0 auto;
+    width: 80%;
+}
+	.parentrightreport{}
+	.parentline1{ width:90%; margin:0 auto;}
+	.childsline1{ float:none; width:90%;}
+	.inputline1{width:130px !important;}
+	.parentline2{ width:90%; margin:0 auto;}
+	.childtests{float: left;height: 28px;}
+	.childtests > label {font-size: 14px;}
+	#datetimepicker > input {font-size: 11px;}
+	#datetimepicker1 > input {font-size: 11px;}
+}
+
+/* Larger than mobile */
+@media (min-width: 200px) and (max-width: 319px) {
+	.parentrightreport{}
+.parentline1{ width:90%; margin:0 auto;}
+	.childsline1{ float:none; width:90%;}
+	.inputline1{width:130px !important;}
+	.parentline2{ width:90%; margin:0 auto;}
+	.childtests{float: left;height: 28px;}
+	.childtests > label {font-size: 14px;}
+	#datetimepicker > input {font-size: 11px;}
+	#datetimepicker1 > input {font-size: 11px;}
+	
+}
