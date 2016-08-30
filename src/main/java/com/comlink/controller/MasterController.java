@@ -311,7 +311,7 @@ public class MasterController {
 			map.put("userID", user.getId());
 			map.put("userType", user.getType());
 			modelview.setViewName("summary-report");
-			modelview.addObject("message", "Login Successfully.");
+			modelview.addObject(" ", "Login Successfully.");
 			modelview.addObject("type", user.getType());
 			modelview.addObject("id", user.getId());
 			modelview.addObject("sdate", date.format(now.getTime()));
@@ -472,12 +472,22 @@ public class MasterController {
 				if ((request.getParameter("focusedInput").length() != 0)
 						&& (request.getParameter("focusedInput") != null)
 						&& (!("".equals(request.getParameter("focusedInput").trim()))
-								&& (request.getParameter("focusedInput").matches("[a-zA-Z]+") == false)))
-					summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
+								))
+					if
+					(request.getParameter("focusedInput").matches("[a-zA-Z]+") == false)
+					{
+						summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
+
+					}
+					else
+					{
+						modelview.addObject("message", "Ticket Number Must Be Integer.");
+				
+					}
 
 				else
 
-					modelview.addObject("message", "Ticket Number Must Be Integer.");
+					
 				modelview.setViewName("summary-report");
 
 				// summaryReport.setTicketNumber(0);
@@ -695,18 +705,20 @@ public class MasterController {
 			add.setCompanyName(request.getParameter("company"));
 			add.setCountryName(request.getParameter("country"));
 			add.setNum(request.getParameter("number"));
-			String[] str = request.getParameterValues("type-test");
+			add.setFax_answer(request.getParameter("type-test"));
 
-			String value1 = "";
-			for (int i = 0; i < str.length; i++) {
-				value1 += str[i] + " ";
-				
-				add.setFax_answer(value1);
-			}
 
-			addnumdao.registernum(add);
-			modelview.addObject("message", "User Created Successfully..");
+		int sd=	addnumdao.registernum(add);
+		if(sd==1)
+		{
+			modelview.addObject("message", "Number Added Successfully.");
 			modelview.setViewName("addnum");
+		}
+		else
+		{
+			modelview.addObject("message", "Number Not Added, Please Try Again.");
+			modelview.setViewName("addnum");
+		}
 		}
 		return modelview;
 	}

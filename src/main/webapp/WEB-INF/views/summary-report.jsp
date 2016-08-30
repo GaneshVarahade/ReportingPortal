@@ -140,14 +140,14 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-									<li><a href="/ReportingPortal/user-management?id="><i
+									<li><a href="/comlink/user-management?id="><i
 								class="icon-user"></i>User Management
 									</a></li>
 									<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
 										
-								<li><a href="/ReportingPortal/logout"><i class="icon-off"></i>Logout</a></li>
+								<li><a href="/comlink/logout.html"><i class="icon-off"></i>Logout</a></li>
 								
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -171,7 +171,7 @@
 
 						<li><a href="summary-report.html"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
-							<li><a href="/ReportingPortal/addnum"><i class="icon-tasks icon-white"></i>
+							<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 						
 					</ul>
@@ -388,7 +388,7 @@
 
 							
 					<div class="parentposts">
-							<div id="newpost" class="mar-top20" style="overflow:auto; height:300px;">
+							<div id="newpost" class="mar-top20">
 								<table
 									class="table table-striped table-bordered bootstrap-datatable datatable ">
 									<thead>

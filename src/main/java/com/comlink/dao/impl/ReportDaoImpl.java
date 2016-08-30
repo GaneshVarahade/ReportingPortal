@@ -28,9 +28,9 @@ public class ReportDaoImpl implements ReportDAO {
 	}
 
 	// getSummaryReport
-	@Override
+	
 	public String getSummaryReport(SummaryReport summeryReport) {
-		System.out.println("====getSummaryReport=====");
+		
 		String op = "";
 
 		long starttime = summeryReport.getStartdate().getTime();
@@ -177,7 +177,7 @@ public class ReportDaoImpl implements ReportDAO {
 	}
 
 	// Download Summary Report
-	@Override
+
 	public List<TestFileLog> downloadsummaryReport(java.sql.Date sqlDates, java.sql.Date sqlDatee, String focusedInput,
 			String RequestSource, String carrierroute, String optionsRadios, String[] type_test) {
 		System.out.println("getdownloadsummaryList");
@@ -227,7 +227,7 @@ public class ReportDaoImpl implements ReportDAO {
 	}
 
 	// Details Reports
-	@Override
+	
 	public List<TestNumberCDR> downloadDetailReport(java.sql.Date sqlDates, java.sql.Date sqlDatee, String focusedInput,
 			String RequestSource, String carrierroute, String optionsRadios, String[] type_test,
 			TestFileLog testfilelog) {
@@ -285,7 +285,7 @@ public class ReportDaoImpl implements ReportDAO {
 		return listall;
 	}
 
-	@Override
+	
 	public List<TestNumberCDR> getTestNumberCDR(int testFileLogID) {
 		return this.jdbcTemplate.query("call reporting.TestNumberCDR(?)", new TestNumberCDRMapper(), testFileLogID);
 	}

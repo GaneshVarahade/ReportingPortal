@@ -132,13 +132,13 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-								<li><a href="/ReportingPortal/user-management?id="><i
+								<li><a href="/comlink/user-management?id="><i
 										class="icon-user"></i><span class="hidden-tablet">User
 											Management </span></a></li>
 								<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
-								<li><a href="/ReportingPortal/logout"><i
+								<li><a href="/comlink/logout"><i
 										class="icon-off"></i>Logout</a></li>
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -158,10 +158,10 @@
 			<div class="span2 main-menu-span">
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li><a href="/ReportingPortal/summary-report"><i
+						<li><a href="/comlink/summary-report"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
 								
-								<li><a href="/ReportingPortal/addnum"><i class="icon-tasks icon-white"></i>
+								<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 					</ul>
 				</div>
@@ -237,7 +237,7 @@
 														<td>Admin</td>
 													</c:if>
 													<c:if test="${user.type != 1}">
-														<td>Ganeral</td>
+														<td>General</td>
 													</c:if>
 													<td><button data-target="#edit" data-toggle="modal" type="button"
 															class="btn btn-primary click" value="Edit"
@@ -309,7 +309,7 @@
 					<h4 class="modal-title">Edit User</h4>
 				</div>
 				<form id="editForm" class="form-horizontal" method="POST"
-					name="registerForm" action="/ReportingPortal/user-management">
+					name="registerForm" action="/comlink/user-management">
 					<div class="modal-body">
 						<input type="hidden" id="userID" name="userID" /> <input
 							type="hidden" name="action" value="edit">
@@ -365,7 +365,7 @@
 				</div>
 
 				<form class="form-horizontal" method="post" name="registerForm"
-					action="/ReportingPortal/user-management"
+					action="/comlink/user-management"
 					onsubmit="return valiadateUsername(this);">
 					<div class="modal-body">
 						<div class="form-group">
@@ -397,21 +397,28 @@
 							<div class="col-sm-8">
 								<input name="password" id="password1" type="password"
 									class="form-control" maxlength="25" required
-									style="width: 204px;padding:14px;" />
+									style="width: 204px;height:30px;" />
 							</div>
 						</div>
 						<br>
-						<div class="form-group">
+						<div class="form-group clearfix">
 							<label class="col-sm-3 control-label">*Confirm Password :
 							</label>
 							<div class="col-sm-8">
 								<input name="password1" id="password2" type="password"
 									class="form-control" maxlength="25" required
-									style="width: 204px; padding:14px;" />
+									style="width: 204px; height:30px;" />
 							</div>
-							<span id='message'></span>
+							</div>
+							<div class="form-group clearfix">
+							<label class="col-sm-3 control-label" style="visibility:hidden"> </label>
+							<div class="col-sm-8">
+								<span id='message'></span>
+							</div>
 						</div>
-						<br>
+							<br>
+						
+				
 						<div class="form-group">
 							<label class="col-sm-3 control-label">* Account Type :</label>
 							<div class="col-sm-8">

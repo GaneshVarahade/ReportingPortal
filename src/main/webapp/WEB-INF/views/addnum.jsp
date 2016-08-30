@@ -140,13 +140,13 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-									<li><a href="/ReportingPortal/user-management?id="><i
+									<li><a href="/comlink/user-management?id="><i
 								class="icon-user"></i>User Management
 									</a></li>
 									<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
-								<li><a href="/ReportingPortal/logout"><i class="icon-off"></i>Logout</a></li>
+								<li><a href="/comlink/logout"><i class="icon-off"></i>Logout</a></li>
 								
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -170,7 +170,7 @@
 
 						<li><a href="summary-report.html"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
-						<li><a href="/ReportingPortal/addnum"><i class="icon-tasks icon-white"></i>
+						<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 					</ul>
 				</div>
@@ -216,7 +216,7 @@
 							<h2>
 								<i class="icon-edit"></i><span class="break"></span>Add number
 							</h2>
-							
+							&nbsp;&nbsp;&nbsp;<center><h4>${message}</h4></center>
 						</div>
 
 						<div class="box-content">
@@ -495,21 +495,24 @@
 										</div>
 									</div>
 										
-									<div id="container" class="clearfix box span12">
-											
+									<div id="container" class="clearfix box">
+											<div class="">
+										<div class="">
+											<label class="control-label" >Country:</label>
+											<div class="controls">
+												<select  name="type-test">
+												  <option value="FAX">FAX</option>
+												    <option value="ANSWER_DETECT">ANSWER_DETECT</option>
+   
+													</select>
+											</div>
+										</div>
+
+									</div>
 												
 												
 													
-												<div class="box span3" style="margin-left:0 !important">
-													<label><input type="radio" name="type-test"
-														value="FAX" >FAX</label>
-												</div>
-												
-												
-												<div class="">
-													<label><input type="radio" name="type-test"
-														value="ANSWER_DETECT" checked>ANSWER_DETECT</label>
-												</div>
+											
 												
 									</div>
 
@@ -548,7 +551,7 @@
 
 			<div class="modal hide fade" id="myModal">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">�</button>
+					<button type="button" class="close" data-dismiss="modal">x</button>
 					<h3>Settings</h3>
 				</div>
 				<div class="modal-body">
