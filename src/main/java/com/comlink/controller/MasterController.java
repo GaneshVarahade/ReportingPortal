@@ -427,6 +427,7 @@ public class MasterController {
 				TestFileLog testfilelog = new TestFileLog();
 				String sdate = request.getParameter("startdate");
 				String edate = request.getParameter("enddate");
+				System.out.println(sdate+"date"+edate);
 				modelview.addObject("focusedInput", request.getParameter("focusedInput"));
 
 				modelview.addObject("RequestSource", request.getParameter("Request-Source"));
@@ -523,10 +524,36 @@ public class MasterController {
 					summaryReport.setOptionsRadios(request.getParameter("optionsRadios"));
 				else
 					summaryReport.setOptionsRadios(null);
+				
+				String pageNumber =(String) request.getParameter("pagenum");
+	 
+				int pageNum = 0;
+				int total=25;
+				if(pageNumber != null && !"".equals(pageNumber)){
+					pageNum =  Integer.parseInt(pageNumber);
+					if(pageNum !=0){
+						pageNum = pageNum *25+1;
+						total = total+pageNum-1;
+						
+						System.out.println("total"+total+"pagenum"+pageNum);
+					}
+					
+				} else {
+					pageNum =  0;
+				}
+				
+			  String list=reportDAO.getRecordsByPage(summaryReport,pageNum, total);
 
-				String summaryLst = reportDAO.getSummaryReport(summaryReport);
+			
 				modelview.setViewName("summary-report");
-				modelview.addObject("testlog", summaryLst);
+				
+				String[] numberand = list.split("SEPERATOR");
+
+			  
+				modelview.addObject("testlog", numberand[0]);
+ 
+				modelview.addObject("numpages", numberand[1]); 
+				
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

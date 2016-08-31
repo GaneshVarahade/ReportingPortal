@@ -224,8 +224,9 @@
                  
 						<div class="box-content">
                   
-							<form class="" action="summary-report.html" method="post" id="myForm">
+							<form class="" action="summary-report.html" method="post" id="myForm" name="form1">
 								<div class="parentline1 clearfix">
+								<input type="hidden" name="recid" value="1">
 									<div class="childsline1">
 
 										<div class="control-group">
@@ -383,7 +384,7 @@
 								
 								</div>
 				
-							</form>
+						 
 							
 
 							
@@ -423,6 +424,28 @@
 									<tbody>${testlog}
 									</tbody>
 								</table>
+								
+<div class="pagination">
+ 
+ <ul class="">
+ 
+ 
+ <li id="PaginationTab"> 
+ 
+      <input type="hidden" name="pagenum" id ="pagenum"  > 
+     
+      
+   
+      
+      
+       
+     </li>
+</ul>
+</form>
+</div> 								
+								
+								
+								
 
 							</div>
 							</div>
@@ -546,6 +569,13 @@
   <script>
 
 	$( document ).ready(function() {
+		pagenum= ${numpages}
+			 var strVar="";
+		 for (var incr=1;incr<=pagenum; incr++){
+			 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+		 }
+		 $('#PaginationTab').append(strVar);
+	
 	    if($("#carrier-route").val()=="0"){
 	    	$("#carrier-route").val("");
 	    }
@@ -560,7 +590,6 @@
 	    		  return this.value == result[i];
 	    	}).prop("checked","true");	
 		}
-	    
 	});
 
 	</script>
@@ -682,10 +711,46 @@ function selectAll(source) {
 	    checkboxes[i].checked = source.checked;
 	  }
 	}
+
+function ajaxcall1(id){
+	alert(id);
+	$.ajax({
+		type : "POST",		
+		contentType : "application/json",
+		url : "getSearchResult.html",
+		dataType: "resources/jsON",
+		data : {
+	        "id" : id
+	    },				
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			//display(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			//display(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+}
+	
 	
 
 
+
+
+
+function onPageClick(pagenumber){ 
+	document.form1.pagenum.value=pagenumber-1;
+	form1.submit();
+}
+
 </script>
+<script type="text/javascript">
+</script>
+
 </body>
 </html>
 

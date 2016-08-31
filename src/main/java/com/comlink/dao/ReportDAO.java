@@ -13,6 +13,8 @@ public interface ReportDAO
     public List<TestFileLog> downloadsummaryReport(Date sqlDates, Date sqlDatee,String focusedInput ,String RequestSource, String carrierroute,String optionsRadios,String[] type_test);
     public List<TestNumberCDR> downloadDetailReport(Date sqlDates, Date sqlDatee,String focusedInput ,String RequestSource, String carrierroute,String optionsRadios,String[] type_test,TestFileLog testfilelog);
 	public List<TestNumberCDR> getTestNumberCDR(int testFileLogID);
+	public String getRecordsByPage(SummaryReport summeryReport,int pageid,int total);
+
 }
 
 
