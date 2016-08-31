@@ -339,6 +339,8 @@ public class ReportDaoImpl implements ReportDAO {
 			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			 
 			numPages=Math.ceil(totallist.size()/limit); 
+			
+			System.out.println("Total list  "+totallist.size());
 		
 		
 		   op = "";

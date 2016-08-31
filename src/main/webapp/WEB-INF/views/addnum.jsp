@@ -200,7 +200,7 @@
 						<ul class="breadcrumb">
 							<li><a href="summary-report.html">Home</a> <span class="divider">/</span>
 							</li>
-							<li><a href="#">Report</a></li>
+							<li><a href="#">Add Number</a></li>
 
 						</ul>
 					</div>
@@ -525,8 +525,8 @@
 								<div class="" style="margin-bottom: 20px;">
 									<button type="submit" class="btn btn-primary click"
 										href="#credits">Submit</button>&nbsp;
-										<button type="submit" class="btn btn-primary click"
-										href="#credits">Cancel</button>
+										<a class="btn btn-primary click"
+										href="addnum.html">Cancel</a>
 										
 								
 								
