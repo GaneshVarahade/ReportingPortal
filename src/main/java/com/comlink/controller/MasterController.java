@@ -65,11 +65,10 @@ public class MasterController {
 
 	//Summary Report
 	@RequestMapping(value = "/downloadsummaryReport", method = RequestMethod.GET)
-	public void downloadExcel(ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView downloadExcel(ModelMap model, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
-
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment; filename=SummaryReport.xls");
+		ModelAndView modelview = new ModelAndView();
+		
 		HttpSession session = request.getSession();
 		String value = session.getId();
 		String sessionID = map.get("sessionId");
@@ -90,6 +89,7 @@ public class MasterController {
 			String RequestSource = request.getParameter("Request-Source");
 			String carrierroute = request.getParameter("carrier-route");
 			String optionsRadios = request.getParameter("optionsRadios");
+			String[] typetest=request.getParameterValues("type-test");
 
 			if (!RequestSource.isEmpty() || !carrierroute.isEmpty() || !optionsRadios.isEmpty())
 			{
@@ -97,7 +97,20 @@ public class MasterController {
 
 					List<TestFileLog> downloadreportlist = reportDAO.downloadsummaryReport(sqlDates, sqlDatee,
 							focusedInput, RequestSource, carrierroute, optionsRadios,
-							request.getParameterValues("type-test"));
+							typetest);
+
+			        if ((downloadreportlist.size()==0))
+			        {
+			        	
+			        	modelview.addObject("message", "Record not found");
+			        	modelview.setViewName("summary-report");
+			        	return modelview;
+				
+			        }
+			        else{
+			        response.setContentType("application/vnd.ms-excel");
+					response.setHeader("Content-Disposition", "attachment; filename=SummaryReport.xls");   
+			       
 					HSSFWorkbook workbook = new HSSFWorkbook();
 					HSSFSheet sheet = workbook.createSheet("TestNumberCDR");
 					int rowIndex = 0;
@@ -157,22 +170,25 @@ public class MasterController {
 					}
 					workbook.write(response.getOutputStream());
 					workbook.close();
-
+			        }
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
 		}
+		return modelview;
 	}
 	
 	//downloadDetailsReport
 	@RequestMapping(value = "/downloadDetailsReport", method = RequestMethod.GET)
-	public void downloadDetailsReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView downloadDetailsReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelview = new ModelAndView();
 		HttpSession session = request.getSession(false);
 		String value = session.getId();
+		
 		String sessionID = map.get("sessionId");
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("Content-Disposition", "attachment; filename=Testview.xls");
+	
 		if (value.equals(sessionID)) {
 			try {
 				SummaryReport summaryReport = new SummaryReport();
@@ -195,7 +211,17 @@ public class MasterController {
 				List<TestNumberCDR> downloadreportlist = reportDAO.downloadDetailReport(sqlDates, sqlDatee,
 						focusedInput, RequestSource, carrierroute, optionsRadios,
 						request.getParameterValues("type-test"), testfilelog);
-
+               if(downloadreportlist.size()==0)
+               { 
+            	   modelview.addObject("message", "Record not found");
+					modelview.setViewName("redirect:summary-report");
+					return modelview;
+               }
+              
+               else{
+	
+	            response.setContentType("application/vnd.ms-excel");
+	            response.setHeader("Content-Disposition", "attachment; filename=Testview.xls");
 				HSSFWorkbook workbook = new HSSFWorkbook();
 				HSSFSheet sheet = workbook.createSheet("TestFileLog");
 				int rowIndex = 0;
@@ -244,10 +270,13 @@ public class MasterController {
 				workbook.close();
 				response.getOutputStream().flush();
 				response.getOutputStream().close();
+               }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
+		return modelview;
 	}
 
 	
@@ -526,15 +555,16 @@ public class MasterController {
 					summaryReport.setOptionsRadios(null);
 				
 				String pageNumber =(String) request.getParameter("pagenum");
-	 
+				int total=Integer.parseInt(request.getParameter("page"));
+	             System.out.println("total"+total);
 				int pageNum = 0;
-				int total=25;
+				//int total=25;
 				if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
 					if(pageNum !=0){
 						pageNum = pageNum *25+1;
 						total = total+pageNum-1;
-						
+						 System.out.println("totalnew"+total);
 						System.out.println("total"+total+"pagenum"+pageNum);
 					}
 					
@@ -577,7 +607,16 @@ public class MasterController {
 		String action = null;
 		if (id1 != "") {
 
-			userDAO.deleteUser(id1);
+		int user2=userDAO.deleteUser(id1);
+			if (user2 == -1) {
+
+				modelview.addObject("message", "User  not Deleted");
+				modelview.setViewName("user-management");
+			} else {
+				modelview.addObject("message", "User  Deleted Successfully..");
+				modelview.setViewName("user-management");
+			}
+			
 
 		}
 		if (value.equals(sessionID)) {
@@ -657,7 +696,15 @@ public class MasterController {
 						user.setLastName(lastName);
 						user.setType(type);
 						user.setUserName(userName);
-						userDAO.editUser(user);
+						int user2=userDAO.editUser(user);
+						if (user2 == -1) {
+
+							modelview.addObject("message", "User not updated");
+							modelview.setViewName("user-management");
+						} else {
+							modelview.addObject("message", "User Updated Successfully..");
+							modelview.setViewName("user-management");
+						}
 					}
 
 				}

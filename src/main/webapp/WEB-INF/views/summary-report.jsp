@@ -43,7 +43,7 @@
 
 
 
-<link href="resources/css/bootstrap.css" rel="stylesheet">
+<!-- <link href="resources/css/bootstrap.css" rel="stylesheet"> -->
 
 
 
@@ -382,10 +382,43 @@
 								
 								</button>
 								
+						 <div class="pull-right">
+										<div class="inputline1">
+											<label class="control-label" for="selectError">Pager</label>
+											<div class="controls">
+												<select  name="page" id="page"
+													value="">
+													<option value="5">5</option>
+													<option value="10">10</option>
+													<option value="25">25</option>
+													<option value="50">50</option>
+													<option value="100">100</option>
+												</select>
+
+											</div>
+										</div>
+									</div>
+						
 								</div>
 				
 						 
-							
+							<div class="pagination">
+ 
+ <ul class="">
+ 
+ 
+ <li id="PaginationTab"> 
+ 
+      <input type="hidden" name="pagenum" id ="pagenum"  > 
+     
+      
+   
+      
+      
+       
+     </li>
+</ul>
+</div>
 
 							
 					<div class="parentposts">
@@ -432,7 +465,7 @@
  
  <li id="PaginationTab"> 
  
-      <input type="hidden" name="pagenum" id ="pagenum"  > 
+      <input type="hidden" name="pagenum" id ="pagenum"> 
      
       
    
@@ -441,6 +474,7 @@
        
      </li>
 </ul>
+</div>
 </form>
 </div> 								
 								
@@ -635,7 +669,7 @@
 		var optionsRadios=document.getElementById("optionsRadios1").value;
 		
 	 
-		            
+		        
 		            
 		            	  var checkboxes = document.getElementsByName("type-test");
 		            	  var checkboxesChecked = [];

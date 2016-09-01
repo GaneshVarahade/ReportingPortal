@@ -76,8 +76,8 @@ public class ReportDaoImpl implements ReportDAO {
 			op = "";
 			for (int i = 0; i < list.size(); i++) {
 
-				op = op + "<tr data-toggle='collapse' href='#demo" + i
-						+ "' class='accordion-toggle collapsed' aria-expanded='false'>";
+				op = op + "<tr data-toggle='collapse' data-target='#demo" + i
+						+ "' class='accordion-toggle' aria-expanded='false'>";
 				op = op + "				<td><button class='btn btn-default btn-xs'><i class='fa-icon-eye-open'></i></button></td>";
 				op = op + "				<td>" + list.get(i).getRecordID() + "</td>";
 				op = op + "				<td>" + list.get(i).getTestPlanId() + "</td>";
@@ -200,27 +200,54 @@ public class ReportDaoImpl implements ReportDAO {
 		}
 
 		
-		if ((type_test != null) && (!(type_test.length == 0))) {
+		/*if ((type_test != null) && (!(type_test.length == 0))) {
 			if ((type_test.length == 1) && (type_test[0] != null) && (!type_test[0].isEmpty())) {
-				System.out.println("type_test[0]==="+type_test[0]);
+				String str=null;
 				condition = condition + " ( ";
 				for (int i = 0; i < type_test.length; i++) {
 					String type[] = type_test;
 					String t = type[i];
+					System.out.println("string"+t);
+					
+					String[] arr = t.split(",");    
+					///String[] type1 =str1;
+					 for ( String ss : arr) {
+                           str=ss;
+                          
+					   
+					  }
 					if ((t != null) && (!t.trim().isEmpty())) {
 						if ((i == type_test.length - 1)) {
-							condition = condition + " test_type = '" + t + "' ";
+							//condition = condition + " test_type = '" + type[i] + "' ";
+							condition = condition + " test_type = '" + type[i] + "' ";
 						} else
-							condition = condition + " test_type = '" + t + "' OR ";
+							condition = condition + " test_type = '" + str + "' OR ";
 					}
 				}
 				condition = condition + " ) " + " AND ";
 			}
+		}*/
+		if (type_test!= null && type_test.length != 0) 
+		{
+			
+			condition = condition + " ( ";
+			for (int i = 0; i < type_test.length; i++) {
+				String[] type = type_test;
+				String t = type[i];
+				if (i == type_test.length - 1) {
+					condition = condition + " test_type = '" + t + "'";
+				} else
+					condition = condition + " test_type = '" + t + "' OR ";
+			}
+			
+			condition = condition + " ) " + " AND ";
+
 		}
 		condition = condition + "file_rcvd_at BETWEEN " + starttime + " AND " + endtime;
 		String sql = "select * from testfilelog where " + condition;
-	
+	System.out.println(sql);
 		List<TestFileLog> list = jdbcTemplate.query(sql, new TestFileLogrowMapper());
+		
 		return list;
 	}
 
@@ -269,7 +296,7 @@ public class ReportDaoImpl implements ReportDAO {
 		}
 		condition = condition + "file_rcvd_at BETWEEN " + starttime + " AND " + endtime;
 		String sql = "select * from testfilelog where " + condition;
-		System.out.println("sql===11111==" + sql);
+	
 		List<TestFileLog> list = jdbcTemplate.query(sql, new TestFileLogrowMapper());
 
 		List<TestNumberCDR> listall = new ArrayList<TestNumberCDR>();
@@ -295,6 +322,7 @@ public class ReportDaoImpl implements ReportDAO {
 		String op = "";
 		double limit =25;
 		double numPages=0;
+
 		  long starttime = summeryReport.getStartdate().getTime();
 		  long endtime = summeryReport.getEnddate().getTime();
 		
@@ -331,14 +359,18 @@ public class ReportDaoImpl implements ReportDAO {
 			if (summeryReport.getCarrierRoute() != null && summeryReport.getCarrierRoute().length() != 0) {
 				querystr = querystr + " carrier_spec LIKE '" + summeryReport.getCarrierRoute() + "%' AND ";
 			}
+			 
+     
+			
 			String querystrTotal =querystr;
 			querystr = querystr + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime+" " +"limit "+(pageid)+","+total;
+			   System.out.println("querystr---------"+querystr);
 			List<TestFileLog> list = jdbcTemplate.query(querystr, new TestFileLogrowMapper()); 
 				//To get the Exact Count			
 				querystrTotal = querystrTotal + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime;			
 			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			 
-			numPages=Math.ceil(totallist.size()/limit); 
+			numPages=Math.ceil(totallist.size()/total); 
 			
 			System.out.println("Total list  "+totallist.size());
 		
@@ -347,9 +379,11 @@ public class ReportDaoImpl implements ReportDAO {
           
           int limit1 = (int) limit;
          
-          
-           for (int i = 0; i < limit1; i++) 
+          System.out.println("list.size()----ta-da----"+list.get(list.size()-1).getRecordID());
+           for (int i =0; i<=limit1; i++) 
            {
+        	   System.out.println("i---------"+i);
+        	   System.out.println("list.size()---------"+list.size());
         	   if(i>=list.size()){
         	   break;
         	   }

@@ -17,7 +17,7 @@ public class AddnumDaoImpl implements AddnumDao
 	}
 
 	public int registernum(Addnum addnum) {
-    return this.jdbcTemplate.update("CALL addnum(?,?,?,?)",addnum.getCompanyName(),addnum.getCountryName(),addnum.getNum(),addnum.getFax_answer());
+    return this.jdbcTemplate.update("CALL addnum1(?,?,?,?)",addnum.getCompanyName(),addnum.getCountryName(),addnum.getNum(),addnum.getFax_answer());
 	}
 
 	
