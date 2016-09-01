@@ -200,48 +200,22 @@ public class ReportDaoImpl implements ReportDAO {
 		}
 
 		
-		/*if ((type_test != null) && (!(type_test.length == 0))) {
+		if ((type_test != null) && (!(type_test.length == 0))) {
 			if ((type_test.length == 1) && (type_test[0] != null) && (!type_test[0].isEmpty())) {
-				String str=null;
+				System.out.println("type_test[0]==="+type_test[0]);
+				String[] types=type_test[0].split(",");
 				condition = condition + " ( ";
-				for (int i = 0; i < type_test.length; i++) {
-					String type[] = type_test;
-					String t = type[i];
-					System.out.println("string"+t);
-					
-					String[] arr = t.split(",");    
-					///String[] type1 =str1;
-					 for ( String ss : arr) {
-                           str=ss;
-                          
-					   
-					  }
+				for (int i = 0; i < types.length; i++) {
+					String t = types[i];
 					if ((t != null) && (!t.trim().isEmpty())) {
-						if ((i == type_test.length - 1)) {
-							//condition = condition + " test_type = '" + type[i] + "' ";
-							condition = condition + " test_type = '" + type[i] + "' ";
+						if ((i == types.length - 1)) {
+							condition = condition + " test_type = '" + t + "' ";
 						} else
-							condition = condition + " test_type = '" + str + "' OR ";
+							condition = condition + " test_type = '" + t + "' OR ";
 					}
 				}
 				condition = condition + " ) " + " AND ";
 			}
-		}*/
-		if (type_test!= null && type_test.length != 0) 
-		{
-			
-			condition = condition + " ( ";
-			for (int i = 0; i < type_test.length; i++) {
-				String[] type = type_test;
-				String t = type[i];
-				if (i == type_test.length - 1) {
-					condition = condition + " test_type = '" + t + "'";
-				} else
-					condition = condition + " test_type = '" + t + "' OR ";
-			}
-			
-			condition = condition + " ) " + " AND ";
-
 		}
 		condition = condition + "file_rcvd_at BETWEEN " + starttime + " AND " + endtime;
 		String sql = "select * from testfilelog where " + condition;
@@ -318,7 +292,7 @@ public class ReportDaoImpl implements ReportDAO {
 	public String getRecordsByPage(SummaryReport summeryReport, int pageid,
 			int total) {
 		
-		
+		total=25;
 		String op = "";
 		double limit =25;
 		double numPages=0;
@@ -370,14 +344,16 @@ public class ReportDaoImpl implements ReportDAO {
 				querystrTotal = querystrTotal + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime;			
 			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			 
-			numPages=Math.ceil(totallist.size()/total); 
+			//numPages=Math.ceil(totallist.size()/limit); 
+			numPages=Math.ceil(totallist.size()/limit); 
 			
 			System.out.println("Total list  "+totallist.size());
 		
 		
 		   op = "";
           
-          int limit1 = (int) limit;
+       int limit1 = (int) limit;
+		 
          
           System.out.println("list.size()----ta-da----"+list.get(list.size()-1).getRecordID());
            for (int i =0; i<=limit1; i++) 
