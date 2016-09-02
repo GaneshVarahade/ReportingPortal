@@ -504,7 +504,7 @@ public class MasterController {
 						&& (!("".equals(request.getParameter("focusedInput").trim()))
 								))
 					if
-					(request.getParameter("focusedInput").matches("^[0-9a-zA-Z]+$") == false)
+					(request.getParameter("focusedInput").matches("^[a-zA-Z]+$") == false)
 					{
 						summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
 
@@ -556,7 +556,7 @@ public class MasterController {
 				
 				String pageNumber =(String) request.getParameter("pagenum");
 				int total=Integer.parseInt(request.getParameter("page"));
-	        
+	          
 				int pageNum = 0;
 			    if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
