@@ -386,15 +386,7 @@
 										<div class="inputline1">
 											<label class="control-label" for="selectError">Pager</label>
 											<div class="controls">
-												<select  name="page" id="page"
-													value="">
-													<option value="5">5</option>
-													<option value="10">10</option>
-													<option value="25">25</option>
-													<option value="50">50</option>
-													<option value="100">100</option>
-												</select>
-
+												<input type ="number"  name="page" id="page" value="${pageSize}">
 											</div>
 										</div>
 									</div>

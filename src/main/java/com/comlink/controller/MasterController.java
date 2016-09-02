@@ -504,7 +504,7 @@ public class MasterController {
 						&& (!("".equals(request.getParameter("focusedInput").trim()))
 								))
 					if
-					(request.getParameter("focusedInput").matches("[a-zA-Z]+") == false)
+					(request.getParameter("focusedInput").matches("^[0-9a-zA-Z]+$") == false)
 					{
 						summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
 
@@ -558,19 +558,19 @@ public class MasterController {
 				int total=Integer.parseInt(request.getParameter("page"));
 	        
 				int pageNum = 0;
-			//int total=25;
-				if(pageNumber != null && !"".equals(pageNumber)){
+			    if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
+					
+					
 					if(pageNum !=0)
 					{
-						pageNum = pageNum *25+1;
-						total = total+pageNum-1;
-					   
+						pageNum = pageNum *total+1;
 					}
 					
 				} else {
 					pageNum =  0;
 				}
+				
 				
 			  String list=reportDAO.getRecordsByPage(summaryReport,pageNum, total);
 
@@ -583,6 +583,8 @@ public class MasterController {
 				modelview.addObject("testlog", numberand[0]);
  
 				modelview.addObject("numpages", numberand[1]); 
+ 
+				modelview.addObject("pageSize",total); 
 				
 
 			} catch (ParseException e) {
