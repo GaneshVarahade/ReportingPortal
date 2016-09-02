@@ -556,7 +556,7 @@ public class MasterController {
 				
 				String pageNumber =(String) request.getParameter("pagenum");
 				int total=Integer.parseInt(request.getParameter("page"));
-	             System.out.println("total"+total);
+	        
 				int pageNum = 0;
 			//int total=25;
 				if(pageNumber != null && !"".equals(pageNumber)){
@@ -565,8 +565,7 @@ public class MasterController {
 					{
 						pageNum = pageNum *25+1;
 						total = total+pageNum-1;
-					    System.out.println("totalnew"+total);
-						System.out.println("total"+total+"pagenum"+pageNum);
+					   
 					}
 					
 				} else {

@@ -357,8 +357,7 @@ public class ReportDaoImpl implements ReportDAO {
          
            for (int i =0; i<=total; i++) 
            {
-        	   System.out.println("i---------"+i);
-        	   System.out.println("list.size()---------"+list.size());
+        	   
         	   if(i>=list.size()){
         	   break;
         	   }
