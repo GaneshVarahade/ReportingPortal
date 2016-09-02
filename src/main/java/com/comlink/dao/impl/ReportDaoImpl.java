@@ -292,9 +292,9 @@ public class ReportDaoImpl implements ReportDAO {
 	public String getRecordsByPage(SummaryReport summeryReport, int pageid,
 			int total) {
 		
-		total=25;
+	//	total=25;
 		String op = "";
-		double limit =25;
+		//double limit =25;
 		double numPages=0;
 
 		  long starttime = summeryReport.getStartdate().getTime();
@@ -338,25 +338,24 @@ public class ReportDaoImpl implements ReportDAO {
 			
 			String querystrTotal =querystr;
 			querystr = querystr + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime+" " +"limit "+(pageid)+","+total;
-			   System.out.println("querystr---------"+querystr);
+			   System.out.println("querystr---------"+querystr+"pageid"+pageid);
 			List<TestFileLog> list = jdbcTemplate.query(querystr, new TestFileLogrowMapper()); 
 				//To get the Exact Count			
 				querystrTotal = querystrTotal + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime;			
 			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			 
 			//numPages=Math.ceil(totallist.size()/limit); 
-			numPages=Math.ceil(totallist.size()/limit); 
+			numPages=Math.ceil(totallist.size()/total); 
 			
 			System.out.println("Total list  "+totallist.size());
 		
 		
 		   op = "";
           
-       int limit1 = (int) limit;
+      // int limit1 = (int) limit;
 		 
          
-          System.out.println("list.size()----ta-da----"+list.get(list.size()-1).getRecordID());
-           for (int i =0; i<=limit1; i++) 
+           for (int i =0; i<=total; i++) 
            {
         	   System.out.println("i---------"+i);
         	   System.out.println("list.size()---------"+list.size());

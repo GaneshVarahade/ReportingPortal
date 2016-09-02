@@ -555,16 +555,17 @@ public class MasterController {
 					summaryReport.setOptionsRadios(null);
 				
 				String pageNumber =(String) request.getParameter("pagenum");
-				/*int total=Integer.parseInt(request.getParameter("page"));
-	             System.out.println("total"+total);*/
+				int total=Integer.parseInt(request.getParameter("page"));
+	             System.out.println("total"+total);
 				int pageNum = 0;
-			int total=25;
+			//int total=25;
 				if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
-					if(pageNum !=0){
+					if(pageNum !=0)
+					{
 						pageNum = pageNum *25+1;
 						total = total+pageNum-1;
-						 System.out.println("totalnew"+total);
+					    System.out.println("totalnew"+total);
 						System.out.println("total"+total+"pagenum"+pageNum);
 					}
 					

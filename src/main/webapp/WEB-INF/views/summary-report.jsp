@@ -310,7 +310,7 @@
 											<label class="control-label" for="selectError">
 												Type Test</label>
 												<div class="" style="">
-													<label><input type="checkbox" id="checkALl" onClick="selectAll(this)">
+													<label style="width:60px"><input type="checkbox" id="checkALl" onClick="selectAll(this)">
 														 All</label>
 												</div>
 											<div id="container" class="clearfix">
@@ -458,7 +458,7 @@
 									</tbody>
 								</table>
 								
-<div class="pagination">
+<!-- <div class="pagination">
  
  <ul class="">
  
@@ -474,7 +474,7 @@
        
      </li>
 </ul>
-</div>
+</div> -->
 </form>
 </div> 								
 								
