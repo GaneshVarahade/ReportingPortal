@@ -504,7 +504,7 @@ public class MasterController {
 						&& (!("".equals(request.getParameter("focusedInput").trim()))
 								))
 					if
-					(request.getParameter("focusedInput").matches("^[a-zA-Z]+$") == false)
+					(request.getParameter("focusedInput").matches(".*\\D.*") == false)
 					{
 						summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
 
@@ -556,7 +556,7 @@ public class MasterController {
 				
 				String pageNumber =(String) request.getParameter("pagenum");
 				int total=Integer.parseInt(request.getParameter("page"));
-	          
+				System.out.println("pagenumber before"+pageNumber);
 				int pageNum = 0;
 			    if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
@@ -564,12 +564,15 @@ public class MasterController {
 					
 					if(pageNum !=0)
 					{
-						pageNum = pageNum *total+1;
+						pageNum = pageNum *total;
+					
+						
 					}
 					
 				} else {
 					pageNum =  0;
 				}
+			    System.out.println("pagenum after"+pageNum);
 				
 				
 			  String list=reportDAO.getRecordsByPage(summaryReport,pageNum, total);
