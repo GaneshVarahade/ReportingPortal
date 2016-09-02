@@ -34,13 +34,14 @@
     margin-top: 6px !important; font-size:12px; 
 } 
 body {
-	background: url(../img/bg.jpg) repeat-y top right, 
-				url(../img/dbg.jpg) repeat top left;
+	/* background: url(../img/bg.jpg) repeat-y top right, 
+				url(../img/dbg.jpg) repeat top left; */ background-color:#222;
 	color: #646464;
-	border: none;
+	border: none;overflow: auto;height: 100%; width: auto;
 	font-family: Arial, sans-serif;
 }
-.parentposts{ width:100%; margin:0 auto;}
+.parentposts{  margin:0 auto; overflow: auto;
+    width: auto;}
 #overlay {
 	background: #080808;
 	position: fixed;
@@ -396,7 +397,7 @@ h6 {
 	padding: 10px;
   	border: 1px solid #ddd;
   	background: #fcfcfc;
-	overflow-x: auto;
+
   	-webkit-border-radius: 0px 0px 2px 2px;
 	   -moz-border-radius: 0px 0px 2px 2px;
           	border-radius: 0px 0px 2px 2px;
@@ -412,11 +413,11 @@ h6 {
   	min-height: 40px;
   	padding-right: 20px;
   	padding-left: 20px;
-	background: url(../img/dbg.jpg);
-	border-left: 0px solid #0a0c0e;
-	border-right: 0px solid #0a0c0e;
-	border-top: 1px solid #0a0c0e;
-  	border-bottom: 2px solid #0a0c0e;
+	background:#222;
+	border-left: 0px none #0a0c0e;
+	border-right: 0px none #0a0c0e;
+	border-top: 1px none #0a0c0e;
+  	border-bottom: 2px none #0a0c0e;
 	filter: none;
 	text-shadow: 1px 1px 1px #0a0c0e;
 	color: #fff;
@@ -1817,7 +1818,7 @@ border-top: 1px solid #DBDBDB;}
   border-top: 1px solid #e5e5e5;
 }
 /*--------------------------------*/
-.collapse {
+/* .collapse {
 	display: none
 }
 .collapse.in {
@@ -1836,7 +1837,8 @@ tbody.collapse.in {
 	-webkit-transition: height .35s ease;
 	-o-transition: height .35s ease;
 	transition: height .35s ease
-}
+} */
+
 
 /* UI - Uniform
 =================================================================== */

@@ -87,7 +87,7 @@
 							</div>
 							<div class="clearfix"></div>
 							
-							<label class="remember" for="remember"><input type="checkbox" id="remember" style="margin-right:10px; margin-top:0;" />Remember me</label>
+						<!-- 	<label class="remember" for="remember"><input type="checkbox" id="remember" style="margin-right:10px; margin-top:0;" />Remember me</label>  -->
 
 							<div class="button-login">	
 								<button type="submit" class="btn btn-primary"><i class="icon-off icon-white"></i> Login</button>

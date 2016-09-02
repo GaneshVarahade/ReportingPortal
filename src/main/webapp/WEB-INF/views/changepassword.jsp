@@ -75,13 +75,13 @@
 
 							<div class="input-prepend" title="Password">
 								<span class="add-on1"><i class="icon-lock"></i></span>
-								<input required class="input-large span10" name="password" id="password" type="password" placeholder="Password"/>
+								<input required class="input-large span10" name="password" id="password" type="password" placeholder="New Password"/>
 							</div>
                             <div class="clearfix"></div>
 
 							<div class="input-prepend" title="Password">
 								<span class="add-on1"><i class="icon-lock"></i></span>
-								<input required class="input-large span10" name="password" id="password1" type="password" placeholder="Confirm Password"/>
+								<input required class="input-large span10" name="password" id="password1" type="password" placeholder="Confirm new password"/>
 							</div>
 
 							<div class="button-signup">	

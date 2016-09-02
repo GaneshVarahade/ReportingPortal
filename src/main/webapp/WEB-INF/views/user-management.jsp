@@ -209,7 +209,8 @@
 						</div>
 
 						<div class="box-content">
-							<button type="submit" class="btn btn-primary click" data-toggle="modal" data-target="#addUser" data-backdrop="static" data-keyboard="false" style="float: right;"><i class="fa fa-plus-circle">Add User</i></button>								
+							<button type="submit" class="btn btn-primary click" data-toggle="modal" data-target="#addUser" data-backdrop="static" data-keyboard="false" style="float: right;"> 
+							<i class="fa fa-plus-circle">Add User</i></button>								
 							<div id="newpost" class="mar-top20">
 								<table id="tableID" 
 									class="table table-striped table-bordered bootstrap-datatable datatable ">
