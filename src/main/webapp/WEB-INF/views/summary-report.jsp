@@ -401,7 +401,7 @@
  
  <li id="PaginationTab"> 
  
-      <input type="hidden" name="pagenum" id ="pagenum"  > 
+      
      
  </li>
 </ul>
@@ -576,21 +576,44 @@
 		
 		pagenum= ${numpages}
 		 page =${pageSize}
+		 selectedPage = ${selectedPage}
 		 console.log(page)
+		 console.log("pagenum---"+pagenum)
+		  console.log("selectedPage---"+selectedPage)
 		var pageSize =  document.getElementById("page").value
 		console.log(pageSize)
 		 if(pageSize == 25){
-		 
 		if(page != "" && page != null && page != 0){
 			 $("#page").val(page);
 		}
 	}
-			 var strVar="";
-		 for (var incr=1;incr<=pagenum; incr++){
-			 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
-		 }
-		 $('#PaginationTab').append(strVar);
-	
+		var pagecounter = 1;
+		var pageOperation ="";
+		var prevCount=0;
+		var operation ="+";
+		if(!isNaN(pagenum))
+		{
+			if(!isNaN(selectedPage))	{
+				if(selectedPage>5)
+				{
+					prevCount = selectedPage-5;
+					if(prevCount!=0){
+						operation = "-";
+					}
+					else{
+						operation="+";
+					}
+					
+				}else{
+					operation = "-";
+				}
+					
+					
+				pagecounter=selectedPage+1;
+			}
+			pageOperation =pagecounter + "SEP" + operation
+			initPagination(pageOperation)
+		} 
 	    if($("#carrier-route").val()=="0"){
 	    	$("#carrier-route").val("");
 	    }
@@ -605,6 +628,57 @@
 	    		  return this.value == result[i];
 	    	}).prop("checked","true");	
 		}
+		function initPagination(pageOperation){
+			var strVar="";
+			var vNext= "Next";
+			var pagecount = pageOperation.split("SEP");
+			pagecounter = parseInt(pagecount[0]);
+			operation = pagecount[1]
+			strVar += "<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
+			var limit=10;
+			var vnextl=0;
+			if(!isNaN(pagenum))	{
+				if(operation == "+"){
+				limit = pagecounter + 5;
+				}else {	
+					limit = pagecounter - 5;	
+				}
+			
+				if(pagenum<limit){
+					limit= pagenum
+				}
+				if(limit<=0){
+					limit = 1
+					pagecount[0] =5
+				}
+			}
+			
+			if(operation == "-"){
+				 pagecounter =pagecounter-5;
+				 if(pagecounter<=0){
+					 pagecounter = 5
+					}else{
+				strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+					}
+			 }	
+			if(operation == "+"){
+			 for (var incr=pagecounter;incr<=limit-1; incr++){
+				 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+				 pagecounter =incr;
+			 }
+			} else{
+				 for (var incr=limit;incr<=pagecount[0]; incr++){
+					 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+					  
+				 }
+			}
+			pagecounter = pagecounter+5
+			 if( pagenum>pagecounter){
+			 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+			 }
+			console.log(strVar)
+			 $('#PaginationTab').append(strVar);
+		}
 	});
 
 	</script>
@@ -614,6 +688,7 @@
 
 
 	<script>
+	
 	function downloadDetailReport()
 	{
 		var startDate=document.getElementById("startdate1").value;
@@ -760,6 +835,73 @@ function ajaxcall1(id){
 function onPageClick(pagenumber){ 
 	document.form1.pagenum.value=pagenumber-1;
 	form1.submit();
+}
+function onNext(pagecounter){
+	var strVar="";
+	var vNext= "Next";
+	strVar += "<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
+	strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+	var limit=10;
+
+	if(!isNaN(pagenum))	{
+		limit = pagecounter + 5;
+		if(pagenum<limit){
+			limit= pagenum
+		}
+	}
+
+	 
+	 for (var incr=pagecounter+1;incr<=limit; incr++){
+		 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+		 pagecounter =incr;
+	 }
+
+	 if( pagenum>limit ){
+		 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+		 }
+
+	 $('#PaginationTab').html(strVar);
+ 
+}
+
+function onPrevious(pagecounter){
+	var strVar="";
+	var vNext= "Next";
+	strVar += "<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
+	var pageprev=pagecounter;
+
+	var limit = 5
+	if(!isNaN(pagenum))	{
+		pageprev = pagecounter - 5;
+		
+		if(pagenum<pageprev){
+			pageprev= pagenum
+		}
+		limit = pagecounter
+		if(limit<5){
+			limit = 5
+		}
+	}
+	if(pageprev<0)
+		pageprev=0
+
+		 if( pageprev !=0 && pageprev>0 ){
+			 pagecounter =pagecounter-5;
+			 if(pagecounter<5){
+				 pagecounter = 5
+				}
+	strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+		 }
+
+	for (var incr=pageprev+1;incr<=limit; incr++){
+		 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+		 
+	 }
+	 if( pagenum>pagecounter ){
+		 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+		 } 
+		$('#PaginationTab').html(strVar);
+		
 }
 
 </script>

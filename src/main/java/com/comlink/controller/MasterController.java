@@ -587,6 +587,8 @@ public class MasterController {
  
 				modelview.addObject("numpages", numberand[1]); 
  
+				modelview.addObject("selectedPage", pageNumber); 
+ 
 				modelview.addObject("pageSize",total); 
 				
 
