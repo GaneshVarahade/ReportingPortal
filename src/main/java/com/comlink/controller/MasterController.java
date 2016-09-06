@@ -572,7 +572,7 @@ public class MasterController {
 				modelview.addObject("selectedPage", pageNumber); 
  
 				modelview.addObject("pageSize",total); 
-				
+				System.out.println("total"+total);
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

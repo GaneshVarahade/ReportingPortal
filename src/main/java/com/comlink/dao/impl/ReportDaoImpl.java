@@ -286,7 +286,7 @@ public class ReportDaoImpl implements ReportDAO {
 
 	
 	public List<TestNumberCDR> getTestNumberCDR(int testFileLogID) {
-		return this.jdbcTemplate.query("call reporting.TestNumberCDR(?)", new TestNumberCDRMapper(), testFileLogID);
+		return this.jdbcTemplate.query("call TestNumberCDR(?)", new TestNumberCDRMapper(), testFileLogID);
 	}
 
 	public String getRecordsByPage(SummaryReport summeryReport, int pageid,
@@ -345,7 +345,9 @@ public class ReportDaoImpl implements ReportDAO {
 			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			
 			numPages=Math.ceil(totallist.size()/divider); 
+			
 			System.out.println("totallist"+totallist.size());
+			System.out.println("numPages"+numPages);
              op = "";
           
             for (int i =0; i<=total; i++) 

@@ -861,6 +861,7 @@ console.log("pagecounter--Before --->>"+pagecounter)
 	 for (var incr=pagecounter+1;incr<=limit; incr++){
 		 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
 		 pagecounter =incr;
+
 	 }
 
 	 if( pagenum>limit ){
