@@ -65,7 +65,7 @@ public class MasterController {
 
 	//Summary Report
 	@RequestMapping(value = "/downloadsummaryReport", method = RequestMethod.GET)
-	public ModelAndView downloadExcel(ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	public void downloadExcel(ModelMap model, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
 		ModelAndView modelview = new ModelAndView();
 		
@@ -99,15 +99,7 @@ public class MasterController {
 							focusedInput, RequestSource, carrierroute, optionsRadios,
 							typetest);
 
-			        if ((downloadreportlist.size()==0))
-			        {
-			        	
-			        	modelview.addObject("message", "Record not found");
-			        	modelview.setViewName("summary-report");
-			        	return modelview;
-				
-			        }
-			        else{
+			      
 			        response.setContentType("application/vnd.ms-excel");
 					response.setHeader("Content-Disposition", "attachment; filename=SummaryReport.xls");   
 			       
@@ -170,19 +162,18 @@ public class MasterController {
 					}
 					workbook.write(response.getOutputStream());
 					workbook.close();
-			        }
+			   
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
-		return modelview;
+		
 	}
 	
 	//downloadDetailsReport
 	@RequestMapping(value = "/downloadDetailsReport", method = RequestMethod.GET)
-	public ModelAndView downloadDetailsReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+	public void downloadDetailsReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelview = new ModelAndView();
 		HttpSession session = request.getSession(false);
 		String value = session.getId();
@@ -211,15 +202,7 @@ public class MasterController {
 				List<TestNumberCDR> downloadreportlist = reportDAO.downloadDetailReport(sqlDates, sqlDatee,
 						focusedInput, RequestSource, carrierroute, optionsRadios,
 						request.getParameterValues("type-test"), testfilelog);
-               if(downloadreportlist.size()==0)
-               { 
-            	   modelview.addObject("message", "Record not found");
-					modelview.setViewName("redirect:summary-report");
-					return modelview;
-               }
-              
-               else{
-	
+          
 	            response.setContentType("application/vnd.ms-excel");
 	            response.setHeader("Content-Disposition", "attachment; filename=Testview.xls");
 				HSSFWorkbook workbook = new HSSFWorkbook();
@@ -270,13 +253,12 @@ public class MasterController {
 				workbook.close();
 				response.getOutputStream().flush();
 				response.getOutputStream().close();
-               }
+               
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		return modelview;
 	}
 
 	
@@ -504,7 +486,7 @@ public class MasterController {
 						&& (!("".equals(request.getParameter("focusedInput").trim()))
 								))
 					if
-					(request.getParameter("focusedInput").matches("^[a-zA-Z]+$") == false)
+					(request.getParameter("focusedInput").matches(".*\\D.*") == false)
 					{
 						summaryReport.setTicketNumber(Integer.valueOf(request.getParameter("focusedInput")));
 
@@ -556,7 +538,7 @@ public class MasterController {
 				
 				String pageNumber =(String) request.getParameter("pagenum");
 				int total=Integer.parseInt(request.getParameter("page"));
-	          
+				System.out.println("pagenumber before"+pageNumber);
 				int pageNum = 0;
 			    if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
@@ -564,12 +546,15 @@ public class MasterController {
 					
 					if(pageNum !=0)
 					{
-						pageNum = pageNum *total+1;
+						pageNum = pageNum *total;
+					
+						
 					}
 					
 				} else {
 					pageNum =  0;
 				}
+			    System.out.println("pagenum after"+pageNum);
 				
 				
 			  String list=reportDAO.getRecordsByPage(summaryReport,pageNum, total);
@@ -583,6 +568,8 @@ public class MasterController {
 				modelview.addObject("testlog", numberand[0]);
  
 				modelview.addObject("numpages", numberand[1]); 
+ 
+				modelview.addObject("selectedPage", pageNumber); 
  
 				modelview.addObject("pageSize",total); 
 				
