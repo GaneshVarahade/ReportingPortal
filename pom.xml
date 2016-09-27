@@ -15,7 +15,7 @@ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLS
 
 <version>1.0.0</version>
 
-<name>comlink Maven Webapp</name>
+<name>ReportingPortal Maven Webapp</name>
 
 
 
@@ -173,7 +173,7 @@ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLS
 
 </dependencies>
 
-<artifactId>comlink</artifactId>
+<artifactId>ReportingPortal</artifactId>
 
 <build>
     <resources>

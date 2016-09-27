@@ -132,13 +132,13 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-								<li><a href="/comlink/user-management?id="><i
+								<li><a href="user-management?id="><i
 										class="icon-user"></i><span class="hidden-tablet">User
 											Management </span></a></li>
 								<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
-								<li><a href="/comlink/logout"><i
+								<li><a href="logout"><i
 										class="icon-off"></i>Logout</a></li>
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -152,16 +152,16 @@
 	<!-- start: Header -->
 
 	<div class="container-fluid">
-		<div class="row-fluid">
+		<div class="row-fluid" style=" position: unset; width: 3000px; padding-left: 10px;">
 
 			<!-- start: Main Menu -->
 			<div class="span2 main-menu-span">
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li><a href="/comlink/summary-report"><i
+						<li><a href="summary-report"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
 								
-								<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
+								<li><a href="addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 					</ul>
 				</div>
@@ -198,7 +198,7 @@
 					<hr>
 				</div>
                <div class="row-fluid sortable">
-					<div class="box span12">
+					<div class="box span6" style="width: 38%">
 						<div class="box-header" data-original-title="">
 							<h2>
 								<i class="icon-edit"></i><span class="break"></span>User
@@ -286,7 +286,9 @@
 
 		</div>
 		<!--/.fluid-container-->
-		<footer>
+		
+	</div>
+<footer>
 			<p>
 				<span style="text-align: left; float: left">&copy; 2016 <a
 					href="http://www.comlinkinc.com/index.html" target="_blank">Comlink,
@@ -295,8 +297,6 @@
 			</p>
 
 		</footer>
-	</div>
-
 
 	<div class="modal fade" id="edit" tabindex="-1" role="dialog"
 		aria-labelledby="delete-domain" aria-hidden="true">
@@ -310,7 +310,7 @@
 					<h4 class="modal-title">Edit User</h4>
 				</div>
 				<form id="editForm" class="form-horizontal" method="POST"
-					name="registerForm" action="/comlink/user-management">
+					name="registerForm" action="user-management">
 					<div class="modal-body">
 						<input type="hidden" id="userID" name="userID" /> <input
 							type="hidden" name="action" value="edit">
@@ -366,7 +366,7 @@
 				</div>
 
 				<form class="form-horizontal" method="post" name="registerForm"
-					action="/comlink/user-management"
+					action="user-management"
 					onsubmit="return valiadateUsername(this);">
 					<div class="modal-body">
 						<div class="form-group">

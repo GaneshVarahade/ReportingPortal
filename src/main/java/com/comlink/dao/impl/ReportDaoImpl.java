@@ -26,6 +26,7 @@ public class ReportDaoImpl implements ReportDAO {
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	public static List<TestFileLog> totallist;
 
 	// getSummaryReport
 	
@@ -276,11 +277,11 @@ public class ReportDaoImpl implements ReportDAO {
 		List<TestNumberCDR> listall = new ArrayList<TestNumberCDR>();
 		for (TestFileLog testFileLog : list) {
 			String query2 = "select * from testnumbercdr where testfilelogID=" + testFileLog.getRecordID();
-			System.out.println("query2===="+query2);
+			
 			List<TestNumberCDR> list2 = jdbcTemplate.query(query2, new TestNumberCDRMapper());
 			listall.addAll(list2);
 		}
-		System.out.println(listall.size());
+		
 		return listall;
 	}
 
@@ -334,20 +335,18 @@ public class ReportDaoImpl implements ReportDAO {
      
 			
 			String querystrTotal =querystr;
-			System.out.println("total-----Before Query----"+total);
-			System.out.println("pageid---Before Query--"+pageid);
+			
 			
 			querystr = querystr + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime+" " +"limit "+(pageid)+","+total;
-			   System.out.println("querystr---------"+querystr+"pageid"+pageid);
+			   
 			List<TestFileLog> list = jdbcTemplate.query(querystr, new TestFileLogrowMapper()); 
 				//To get the Exact Count			
 			querystrTotal = querystrTotal + " file_rcvd_at BETWEEN " + starttime + " AND " + endtime;			
-			List<TestFileLog> totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
+		totallist = jdbcTemplate.query(querystrTotal, new TestFileLogrowMapper());			
 			
 			numPages=Math.ceil(totallist.size()/divider); 
 			
-			System.out.println("totallist"+totallist.size());
-			System.out.println("numPages"+numPages);
+			
              op = "";
           
             for (int i =0; i<=total; i++) 

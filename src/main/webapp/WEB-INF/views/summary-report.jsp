@@ -140,14 +140,14 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-									<li><a href="/comlink/user-management?id="><i
+									<li><a href="user-management?id="><i
 								class="icon-user"></i>User Management
 									</a></li>
 									<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
 										
-								<li><a href="/comlink/logout.html"><i class="icon-off"></i>Logout</a></li>
+								<li><a href="logout.html"><i class="icon-off"></i>Logout</a></li>
 								
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -171,7 +171,7 @@
 
 						<li><a href="summary-report.html"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
-							<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
+							<li><a href="addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 						
 					</ul>
@@ -214,7 +214,7 @@
 
 				<div class="row-fluid sortable">
 					<div class="parentrightreport">
-						<div class="box-header" data-original-title="">		&nbsp;&nbsp;&nbsp;<h4><center>${message}</center></h4>
+						<div class="box-header" data-original-title="">		&nbsp;&nbsp;&nbsp;<h4>${message}</h4>
 							<h2>
 								<i class="icon-edit"></i><span class="break"></span>View Report
 							</h2> 
@@ -382,20 +382,20 @@
 								
 								</button>
 								
-						 <div class="pull-right">
-										<div class="inputline1">
+						
+						
+								</div>
+				
+						 
+							<div class="parentline2 pagination">
+  <div class="">
+										<div class="inputline1" style="width:70px !important;">
 											<label class="control-label" for="selectError">Pager</label>
 											<div class="controls">
 												<input type ="number"  name="page" id="page" value="25">
 											</div>
 										</div>
 									</div>
-						
-								</div>
-				
-						 
-							<div class="pagination">
- 
  <ul class="">
  
  
@@ -444,7 +444,9 @@
 									<tbody>${testlog}
 									</tbody>
 								</table>
-
+	 					
+							<span>${message1}</span><br>	
+<li id="PaginationTabBottom"> 		
 </form>
 </div> 								
 								
@@ -632,6 +634,7 @@
 			
 			console.log("pageOperation--->>"+pageOperation)
 			var strVar="";
+			var bottampage = "";
 			var vNext= "Next";
 			var pagecount = pageOperation.split("SEP");
 			pagecounter = parseInt(pagecount[0]);
@@ -661,17 +664,19 @@
 					 pagecounter = 5
 					}else{
 				strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+				bottampage+="<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
 					}
 			 }	
 			if(operation == "+"){
 			 for (var incr=pagecounter;incr<=limit-1; incr++){
 				 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+				 bottampage+="<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
 				 pagecounter =incr;
 			 }
 			} else{
 				 for (var incr=limit;incr<=pagecount[0]; incr++){
 					 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
-					  
+					 bottampage+="<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
 				 }
 			}
 			pagecounter = pagecounter+5
@@ -679,9 +684,13 @@
 			console.log("pagenum--->>"+pagenum)
 			 if( pagenum>=pagecounter){
 			 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+			 bottampage+="<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
 			 }
 			console.log(strVar)
 			 $('#PaginationTab').append(strVar);
+			$('#PaginationTabBottom').append(bottampage);
+			
+			
 		}
 	});
 
@@ -842,9 +851,11 @@ function onPageClick(pagenumber){
 }
 function onNext(pagecounter){
 	var strVar="";
+	var  bottampage = "";
 	var vNext= "Next";
 	strVar += "<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
 	strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+	bottampage+="<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
 	var limit=10;
 console.log("pagecounter--Before --->>"+pagecounter)
 	if(!isNaN(pagenum))	{
@@ -860,22 +871,27 @@ console.log("pagecounter--Before --->>"+pagecounter)
  
 	 for (var incr=pagecounter+1;incr<=limit; incr++){
 		 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+		 bottampage+="<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
 		 pagecounter =incr;
 
 	 }
 
 	 if( pagenum>limit ){
 		 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+		 bottampage+="<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
 		 }
 
 	 $('#PaginationTab').html(strVar);
+	 $('#PaginationTabBottom').html(bottampage);
  
 }
 
 function onPrevious(pagecounter){
 	var strVar="";
 	var vNext= "Next";
+	var bottampage = "";
 	strVar += "<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
+	bottampage +="<input type=\"hidden\" name=\"pagenum\" id =\"pagenum\"  > ";
 	var pageprev=pagecounter;
 
 	var limit = 5
@@ -899,16 +915,20 @@ function onPrevious(pagecounter){
 				 pagecounter = 5
 				}
 	strVar += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
+	bottampage += "<input type=button value=Prev onclick=\"onPrevious("+pagecounter+")\"> &nbsp";
 		 }
 
 	for (var incr=pageprev+1;incr<=limit; incr++){
 		 strVar += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
+		 bottampage += "<input type=button value=\""+incr+"\" onclick=\"onPageClick("+incr+")\"> &nbsp";
 		 
 	 }
 	 if( pagenum>pagecounter ){
 		 strVar += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
+		 bottampage += "<input type=button value=\""+vNext+"\" onclick=\"onNext("+pagecounter+")\"> &nbsp";
 		 } 
 		$('#PaginationTab').html(strVar);
+		$('#PaginationTabBottom').html(bottampage);
 		
 }
 

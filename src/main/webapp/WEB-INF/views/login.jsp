@@ -86,7 +86,7 @@
 								<input required class="input-large span10" name="password" id="password" type="password" placeholder="Password"/>
 							</div>
 							<div class="clearfix"></div>
-							
+							<span>${message}</span>
 						<!-- 	<label class="remember" for="remember"><input type="checkbox" id="remember" style="margin-right:10px; margin-top:0;" />Remember me</label>  -->
 
 							<div class="button-login">	

@@ -140,13 +140,13 @@
 								<%
 									if(MasterController.map.get("userType").equals("1")){
 								%>
-									<li><a href="/comlink/user-management?id="><i
+									<li><a href="user-management?id="><i
 								class="icon-user"></i>User Management
 									</a></li>
 									<%}%>
 								<li><a href="changepassword.html"><i class="icon-user"></i>
 										Change Password</a></li>
-								<li><a href="/comlink/logout"><i class="icon-off"></i>Logout</a></li>
+								<li><a href="logout"><i class="icon-off"></i>Logout</a></li>
 								
 							</ul></li>
 						<!-- end: User Dropdown -->
@@ -170,7 +170,7 @@
 
 						<li><a href="summary-report.html"><i
 								class="icon-tasks icon-white"></i><span class="hidden-tablet">Reports</span></a></li>
-						<li><a href="/comlink/addnum"><i class="icon-tasks icon-white"></i>
+						<li><a href="addnum"><i class="icon-tasks icon-white"></i>
 								<span class="hidden-tablet">Add Numbers</span></a></li>	
 					</ul>
 				</div>
@@ -211,7 +211,7 @@
 
 
 				<div class="row-fluid sortable">
-					<div class="parentrightreport">
+					<div class="parentrightreport span4">
 						<div class="box-header" data-original-title="">
 							<h2>
 								<i class="icon-edit"></i><span class="break"></span>Add number
@@ -222,7 +222,7 @@
 						<div class="box-content">
 
 							<form class="marginauto" action="addnum.html" method="post">
-								<div class="parentline1 box span12 clearfix" style="margin-bottom:0;">
+								<div class="parentline1 box span6 clearfix" style="margin-bottom:0;">
 									
 									
 									<div class="">
@@ -495,7 +495,7 @@
 										</div>
 									</div>
 										
-									<div id="container" class="clearfix box">
+									<div id="" class="">
 											<div class="">
 										<div class="">
 											<label class="control-label" >Country:</label>

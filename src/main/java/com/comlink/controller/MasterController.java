@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.comlink.dao.AddnumDao;
 import com.comlink.dao.ReportDAO;
 import com.comlink.dao.UserDao;
+import com.comlink.dao.impl.ReportDaoImpl;
 import com.comlink.model.Addnum;
 import com.comlink.model.SummaryReport;
 import com.comlink.model.TestFileLog;
@@ -67,13 +68,11 @@ public class MasterController {
 	@RequestMapping(value = "/downloadsummaryReport", method = RequestMethod.GET)
 	public void downloadExcel(ModelMap model, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
-		ModelAndView modelview = new ModelAndView();
+		
 		
 		HttpSession session = request.getSession();
-		String value = session.getId();
 		String sessionID = map.get("sessionId");
-
-		if (value.equals(sessionID)) {
+		if (session !=null) {
 
 			String sdate = request.getParameter("startdate");
 			String edate = request.getParameter("enddate");
@@ -174,13 +173,11 @@ public class MasterController {
 	//downloadDetailsReport
 	@RequestMapping(value = "/downloadDetailsReport", method = RequestMethod.GET)
 	public void downloadDetailsReport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView modelview = new ModelAndView();
-		HttpSession session = request.getSession(false);
-		String value = session.getId();
 		
-		String sessionID = map.get("sessionId");
-	
-		if (value.equals(sessionID)) {
+		HttpSession session = request.getSession(false);		
+		String sessionID = map.get("sessionId");	
+
+		if (session !=null) {
 			try {
 				SummaryReport summaryReport = new SummaryReport();
 				TestFileLog testfilelog = new TestFileLog();
@@ -260,10 +257,7 @@ public class MasterController {
 		}
 
 	}
-
-	
-
-	@RequestMapping(value = "/getSearchResult", method = RequestMethod.GET)
+    @RequestMapping(value = "/getSearchResult", method = RequestMethod.GET)
 	public ModelAndView subrecord(HttpServletRequest request, HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		ModelAndView modelview = new ModelAndView();
@@ -328,7 +322,7 @@ public class MasterController {
 			modelview.addObject("sdate", date.format(now.getTime()));
 		} else {
 			modelview.setViewName("login");
-			modelview.addObject("message", "Please Try Again.");
+			modelview.addObject("message", "Invalid username or password");
 		}
 		return modelview;
 	}
@@ -405,7 +399,7 @@ public class MasterController {
 		now.set(Calendar.SECOND, 0);
 		now.set(Calendar.HOUR_OF_DAY, 0);
 		modelview.addObject("sdate", date.format(now.getTime()));
-		if (value.equals(sessionID)) {
+		if (session !=null) {
 			User user = new User();
 			String userID = map.get("userID");
 			if (userID != null) {
@@ -423,11 +417,9 @@ public class MasterController {
 	@RequestMapping(value = "/summary-report", method = RequestMethod.POST)
 	public ModelAndView summaryreport(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelview = new ModelAndView();
+		ReportDaoImpl impl=new ReportDaoImpl();
 		HttpSession session = request.getSession();
-		String value = session.getId();
-		String sessionID = map.get("sessionId");
-		if (value.equals(sessionID)) {
-
+		if (session !=null) {
 			try {
 				User user = new User();
 				String userID = map.get("userID");
@@ -536,13 +528,18 @@ public class MasterController {
 				else
 					summaryReport.setOptionsRadios(null);
 				
-				String pageNumber =(String) request.getParameter("pagenum");
+				String pageNumber =(String) request.getParameter("pagenum"); 
+
+				
 				int total=Integer.parseInt(request.getParameter("page"));
-				System.out.println("pagenumber before"+pageNumber);
+				
 				int pageNum = 0;
+				int pageTotalEntries = 0;
+				int total1=0;
+				
 			    if(pageNumber != null && !"".equals(pageNumber)){
 					pageNum =  Integer.parseInt(pageNumber);
-					
+					pageTotalEntries = pageNum+1;
 					
 					if(pageNum !=0)
 					{
@@ -553,18 +550,34 @@ public class MasterController {
 					
 				} else {
 					pageNum =  0;
-				}
-			    System.out.println("pagenum after"+pageNum);
+				} 
 				
-				
+			   
 			  String list=reportDAO.getRecordsByPage(summaryReport,pageNum, total);
-
-			
+			  int totalRecord = impl.totallist.size();
+			  if(totalRecord == 0){
+				  pageNum =0;
+			    } else {
+			    	pageNum= pageNum +1;
+			    }
+			  if(pageTotalEntries ==0){
+				  pageTotalEntries =1;
+			  }
+			  if(totalRecord == 0 && pageNum ==0){
+				  pageTotalEntries=0;
+			  } 
+			  
+			  
+			  int totalofRecords=total*pageTotalEntries;
+			  
+			  if(totalofRecords >totalRecord){
+				  totalofRecords = totalRecord;
+			  }
+			 
 				modelview.setViewName("summary-report");
 				
 				String[] numberand = list.split("SEPERATOR");
 
-			  
 				modelview.addObject("testlog", numberand[0]);
  
 				modelview.addObject("numpages", numberand[1]); 
@@ -572,6 +585,7 @@ public class MasterController {
 				modelview.addObject("selectedPage", pageNumber); 
  
 				modelview.addObject("pageSize",total); 
+				modelview.addObject("message1", "showing  "  +(pageNum)+ " to  "  +totalofRecords+ " of  "  +totalRecord+ " entries" );
 				System.out.println("total"+total);
 
 			} catch (ParseException e) {
@@ -591,8 +605,6 @@ public class MasterController {
 			HttpServletResponse response) {
 		ModelAndView modelview = new ModelAndView();
 		HttpSession session = request.getSession();
-		String value = session.getId();
-		String sessionID = map.get("sessionId");
 		String action = null;
 		if (id1 != "") {
 
@@ -608,7 +620,8 @@ public class MasterController {
 			
 
 		}
-		if (value.equals(sessionID)) {
+		
+		if (session !=null) {	 
 			if (request.getParameter("action") != null) {
 				action = request.getParameter("action");
 
@@ -629,7 +642,8 @@ public class MasterController {
 					}
 
 				}
-				if (action.equals("add")) {
+				if (action.equals("add"))
+				{
 
 					User user = new User();
 					user.setFirstName(request.getParameter("firstname"));
@@ -667,8 +681,7 @@ public class MasterController {
 		String value = session.getId();
 		String sessionID = map.get("sessionId");
 		String action = null;
-
-		if (value.equals(sessionID)) {
+		if (session !=null) {	 
 			if (request.getParameter("action") != null) {
 				action = request.getParameter("action");
 
@@ -761,9 +774,7 @@ public class MasterController {
 	public ModelAndView addnum(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		ModelAndView modelview = new ModelAndView();
 		HttpSession session = request.getSession();
-		String value = session.getId();
-		String sessionID = map.get("sessionId");
-		if (value.equals(sessionID)) {
+		if (session !=null) {	 
 			Addnum add = new Addnum();
 			add.setCompanyName(request.getParameter("company"));
 			add.setCountryName(request.getParameter("country"));
